@@ -1,21 +1,30 @@
 import React from 'react'
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css'
-import logo from './logo.svg'
+import AppBar from './components/AppBar/'
+import Home from './containers/Home'
+import Setting from './containers/Setting'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AppBar hasNavMenu={false} hasMenuButton={true} />
+      <Router>
+        <Switch>
+          <Route exact path={`${process.env.PUBLIC_URL}/`}>
+            <Home />
+          </Route>
+          <Route exact path={`${process.env.PUBLIC_URL}/home`}>
+            <Home />
+          </Route>
+          <Route path={`${process.env.PUBLIC_URL}/setting`}>
+            <Setting />
+          </Route>
+
+          <Route path="*">Not Found</Route>
+        </Switch>
+      </Router>
+    </>
   )
 }
 
