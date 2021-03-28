@@ -1,15 +1,14 @@
 import * as React from 'react'
-import { useApiReducer } from '../../api/api'
-import { getCountry, getStates } from './data'
+
+import { GetCountries, GetStates, GetTimeTableDays } from '../../data'
 
 const Home: React.FC = () => {
-  const countryResponse = useApiReducer(`http://localhost:5000/api?query=${getCountry(1, 1)}`)
+  const countryResponse = GetCountries()
 
-  const stateResponse = useApiReducer(
-    `http://localhost:5000/api?query=${getStates(200, 1, countryResponse.data?.data.countries.data[0].objectId)}`,
-  )
-  console.log(stateResponse.data)
+  GetStates(countryResponse.data.length > 0 ? countryResponse.data[0].objectId : '')
 
-  return <>Home </>
+  GetTimeTableDays('f4241be849a94006ab9f9002a895b206')
+
+  return <> Home </>
 }
 export default Home

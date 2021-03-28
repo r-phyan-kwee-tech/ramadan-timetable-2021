@@ -1,10 +1,9 @@
 import * as React from 'react'
 
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import TuneIcon from '@material-ui/icons/Tune'
 
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-
-import { NavTitleBar, MenuButton, NavButton, MenuContainer, NavTitle, NavToolBar } from './index.style'
+import { MenuButton, MenuContainer, NavButton, NavTitle, NavTitleBar, NavToolBar } from './index.style'
 interface AppBarType {
   title?: string
   hasNavMenu: boolean

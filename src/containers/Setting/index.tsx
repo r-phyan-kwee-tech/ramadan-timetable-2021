@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 
 const Setting: React.FC = () => {
-  let { path } = useRouteMatch()
+  const { path } = useRouteMatch()
   return (
     <>
       <Switch>
