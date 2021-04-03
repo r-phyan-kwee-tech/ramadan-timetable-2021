@@ -5,8 +5,8 @@
 .wrapper {
   padding: 20px 1rem 20px 1rem;
   overflow: scroll;
-  height: 100vh;
-  margin-top: 56px;
+  height: 90vh;
+  margin-top: 20px;
 }
 
 .App-logo {

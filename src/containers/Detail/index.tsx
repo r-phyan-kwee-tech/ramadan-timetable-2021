@@ -7,10 +7,12 @@ import PlaceHolderComponent from '../../components/Placeholder'
 import { GetSingleDay } from '../../data'
 import DetailHeader from './components/DetailHeader'
 import TabsView from './components/TabView'
+import { NavBarContext } from '../../App'
 
 const Detail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
-
+  const { setNavMenuToggle } = React.useContext(NavBarContext)
+  setNavMenuToggle(true)
   const { data, loading } = GetSingleDay(id)
 
   return (

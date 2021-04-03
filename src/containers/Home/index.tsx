@@ -14,9 +14,12 @@ import { GetCountries, GetStates, GetTimeTableDays } from '../../data'
 import { Day } from '../../types'
 import { Card, GridContainer } from './index.style'
 import { copyToClipboard } from '../../utils/misc'
+import { NavBarContext } from '../../App'
 
 const Home: React.FC = () => {
   const history = useHistory()
+  const { setNavMenuToggle } = React.useContext(NavBarContext)
+  setNavMenuToggle(false)
 
   const countryResponse = GetCountries()
 
@@ -42,7 +45,7 @@ const Home: React.FC = () => {
           <Card key={item.objectId}>
             <CardActionArea onClick={() => history.push(`detail/${item.objectId}`)}>
               <CardContent>
-                <GridContainer container spacing={2} justify="center">
+                <GridContainer container justify="center">
                   <Grid item xs={2}>
                     <Typography component="h1">{item.dayMm}</Typography>
                   </Grid>
@@ -65,7 +68,7 @@ const Home: React.FC = () => {
                       ).toLocaleDateString('en-US', { weekday: 'short' })}`}
                     </Typography>
                   </Grid>
-                  <Grid item xs={2}>
+                  <Grid item xs={3}>
                     <Typography variant="body2" color="textSecondary" component="strong">
                       {item.sehriTime}
                     </Typography>
@@ -83,8 +86,8 @@ const Home: React.FC = () => {
                 size="small"
                 color="primary"
                 onClick={() => {
-                  setSnackState({ open: true })
                   copyToClipboard(`${window.location.origin}/detail/${item.objectId}`)
+                  setSnackState({ open: true })
                 }}
               >
                 Share

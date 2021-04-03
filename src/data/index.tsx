@@ -67,7 +67,7 @@ export const saveTimeTableDay = async (day: Day) => {
   const indexdb = db as any
 
   try {
-    const result = await indexdb.table('days').where('objectId').equals(day.objectId)
+    const result = await indexdb.table('days').where('objectId').equals(day.objectId).toArray()
     if (result.length === 0) {
       await indexdb.days.add(day)
     }
@@ -195,7 +195,7 @@ export const GetSingleDay = (dayId: string) => {
       dispatch({
         type: 'loading',
       })
-      const states = await indexdb.table('days').where('objectId').equals(dayId)
+      const states = await indexdb.table('days').where('objectId').equals(dayId).toArray()
 
       if (states && states.length > 0) {
         dispatch({

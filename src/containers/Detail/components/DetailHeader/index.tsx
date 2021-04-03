@@ -11,7 +11,7 @@ const DetailHeader: React.FC<{ day: Day }> = ({ day }) => {
       <GridContainer container direction="row" justify="center" alignContent="center">
         <Grid item xs={6}>
           <Card>
-            <TimeTitle> {day.sehriTimeDescMmUni}</TimeTitle>
+            <TimeTitle> {day.sehriTimeDescMmUni} </TimeTitle>
             <TimeDescription> {day.sehriTime}</TimeDescription>
           </Card>
         </Grid>
@@ -56,7 +56,7 @@ const DetailHeader: React.FC<{ day: Day }> = ({ day }) => {
         <Grid item xs={12}>
           <Card>
             <TimeTitle align="left"> ဝါဖြေချိန်ဖတ်ရန်ဒိုအာ </TimeTitle>
-            <TimeDescription>အလ္လာဟွန်းမာ ဗေစ့်မေကာ အမုသို ဝအားယာ </TimeDescription>
+            <TimeDescription>အလ္လာဟွန်းမာ လကာစွမ်းသို ဝဘေကာ အာ့မန်းသို့ ဝအလာရဇ်တေကာ အဖတရ်သို </TimeDescription>
           </Card>
         </Grid>
       </GridContainer>
