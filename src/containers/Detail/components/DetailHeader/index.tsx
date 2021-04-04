@@ -2,22 +2,24 @@ import * as React from 'react'
 
 import Grid from '@material-ui/core/Grid'
 
+import { FontLocationContext } from '../../../../App'
 import { Day } from '../../../../types'
 import { Card, DateTitle, GridContainer, TimeDescription, TimeTitle } from './index.style'
 
 const DetailHeader: React.FC<{ day: Day }> = ({ day }) => {
+  const { convert } = React.useContext(FontLocationContext)
   return (
     <>
       <GridContainer container direction="row" justify="center" alignContent="center">
         <Grid item xs={6}>
           <Card>
-            <TimeTitle> {day.sehriTimeDescMmUni} </TimeTitle>
+            <TimeTitle> {convert(`${day.sehriTimeDescMmUni}`)} </TimeTitle>
             <TimeDescription> {day.sehriTime}</TimeDescription>
           </Card>
         </Grid>
         <Grid item xs={6}>
           <Card>
-            <TimeTitle> {day.iftariTimeDescMmUni}</TimeTitle>
+            <TimeTitle> {convert(`${day.iftariTimeDescMmUni}`)}</TimeTitle>
             <TimeDescription> {day.iftariTime}</TimeDescription>
           </Card>
         </Grid>
@@ -47,16 +49,18 @@ const DetailHeader: React.FC<{ day: Day }> = ({ day }) => {
       <GridContainer container direction="row" justify="center" alignContent="center">
         <Grid item xs={12}>
           <Card>
-            <TimeTitle align="left"> ဝါချည်ချိန်ဖတ်ရန်ဒိုအာ </TimeTitle>
-            <TimeDescription>နဝိုင် သူအန်အစူးမာကဒန် မင်ရှိုင်ရ် ရမ်ဇာန် </TimeDescription>
+            <TimeTitle align="left">{convert(`ဝါချည်ချိန်ဖတ်ရန်ဒိုအာ`)} </TimeTitle>
+            <TimeDescription>{convert(`နဝိုင် သူအန်အစူးမာကဒန် မင်ရှိုင်ရ် ရမ်ဇာန် `)}</TimeDescription>
           </Card>
         </Grid>
       </GridContainer>
       <GridContainer container direction="row" justify="center" alignContent="center">
         <Grid item xs={12}>
           <Card>
-            <TimeTitle align="left"> ဝါဖြေချိန်ဖတ်ရန်ဒိုအာ </TimeTitle>
-            <TimeDescription>အလ္လာဟွန်းမာ လကာစွမ်းသို ဝဘေကာ အာ့မန်းသို့ ဝအလာရဇ်တေကာ အဖတရ်သို </TimeDescription>
+            <TimeTitle align="left">{convert(`ဝါဖြေချိန်ဖတ်ရန်ဒိုအာ`)} </TimeTitle>
+            <TimeDescription>
+              {convert(`အလ္လာဟွန်းမာ လကာစွမ်းသို ဝဘေကာ အာ့မန်းသို့ ဝအလာရဇ်တေကာ အဖတရ်သို`)}{' '}
+            </TimeDescription>
           </Card>
         </Grid>
       </GridContainer>

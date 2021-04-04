@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-export const CenterElement = styled.div`
+export const CenterElement = styled.div<{ left?: string }>`
   position: absolute;
-  left: 50%;
+  left: ${({ left }) => (left ? left : '50%')};
   top: 50%;
 `

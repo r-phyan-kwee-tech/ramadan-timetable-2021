@@ -21,7 +21,7 @@ const AppBar: React.FC<AppBarType> = ({ title, hasMenuButton, hasNavMenu, onNavI
             <ArrowBackIcon />
           </NavButton>
         )}
-        <NavTitle variant="h6">{title}asdf</NavTitle>
+        <NavTitle variant="h6">{title}</NavTitle>
         {hasMenuButton && (
           <MenuContainer>
             <MenuButton aria-label="menu" onClick={() => onMenuClick && onMenuClick()}>

@@ -3,18 +3,21 @@ import { useParams } from 'react-router'
 
 import { CircularProgress } from '@material-ui/core'
 
+import { FontLocationContext, NavBarContext } from '../../App'
 import PlaceHolderComponent from '../../components/Placeholder'
 import { GetSingleDay } from '../../data'
 import DetailHeader from './components/DetailHeader'
 import TabsView from './components/TabView'
-import { NavBarContext } from '../../App'
 
 const Detail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
-  const { setNavMenuToggle } = React.useContext(NavBarContext)
-  setNavMenuToggle(true)
-  const { data, loading } = GetSingleDay(id)
 
+  const { setNavMenuToggle, setTitle } = React.useContext(NavBarContext)
+  const { convert } = React.useContext(FontLocationContext)
+
+  const { data, loading } = GetSingleDay(id)
+  setNavMenuToggle(true)
+  setTitle(convert(`${data?.calendarDay || ''}  အချိန်ဇယား`))
   return (
     <>
       {loading && (

@@ -9,32 +9,42 @@ import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import CloseIcon from '@material-ui/icons/Close'
 
+import { FontLocationContext, NavBarContext } from '../../App'
+import { ErrorText } from '../../app.style'
 import PlaceHolderComponent from '../../components/Placeholder'
-import { GetCountries, GetStates, GetTimeTableDays } from '../../data'
+import { GetCountries, GetSingleState, GetStates, GetTimeTableDays } from '../../data'
 import { Day } from '../../types'
-import { Card, GridContainer } from './index.style'
 import { copyToClipboard } from '../../utils/misc'
-import { NavBarContext } from '../../App'
+import { Card, GridContainer } from './index.style'
 
 const Home: React.FC = () => {
   const history = useHistory()
-  const { setNavMenuToggle } = React.useContext(NavBarContext)
+  const { setNavMenuToggle, setTitle } = React.useContext(NavBarContext)
+  const { convert, selectedState } = React.useContext(FontLocationContext)
   setNavMenuToggle(false)
 
   const countryResponse = GetCountries()
-
   GetStates(countryResponse.data.length > 0 ? countryResponse.data[0].objectId : '')
 
-  const { data, loading } = GetTimeTableDays('f4241be849a94006ab9f9002a895b206')
+  const singleStateResponse = GetSingleState(selectedState)
+  const { data, loading, error } = GetTimeTableDays(selectedState)
   const [snackState, setSnackState] = React.useState({
     open: false,
   })
   const { open } = snackState
+  setTitle(convert(`${singleStateResponse.data?.nameMmUni || ''} အချိန်ဇယား`))
+
   return (
     <>
       {loading && (
         <PlaceHolderComponent>
           <CircularProgress />
+        </PlaceHolderComponent>
+      )}
+
+      {!loading && error && (
+        <PlaceHolderComponent left="40%">
+          <ErrorText>အချိန်ဇယားရယူစဥ် အမှားတခုဖြစ်သွားပါသည်။ Refresh ပြန်လုပ်ပေးပါ</ErrorText>
         </PlaceHolderComponent>
       )}
 

@@ -1,4 +1,4 @@
-import { List, Drawer } from '@material-ui/core'
+import { Drawer, List } from '@material-ui/core'
 import styled from 'styled-components'
 
 export const BottomList = styled(List)``
@@ -14,4 +14,7 @@ export const BottomDrawer = styled(Drawer)`
       }
     }
   }
+`
+export const ErrorText = styled.p`
+  width: 10rem;
 `

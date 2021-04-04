@@ -6,7 +6,7 @@ const API = async (url: string, abortSignal: AbortSignal) => {
 }
 
 export const useApiReducer = (url: string) => {
-  const initialState = { loading: false, data: null }
+  const initialState = { loading: true, data: null }
 
   const reducer = (state: ApiReducerType = initialState, action: ApiActionType): ApiReducerType => {
     switch (action.type) {
@@ -15,7 +15,7 @@ export const useApiReducer = (url: string) => {
       case 'success':
         return { ...state, loading: false, data: action.data }
       case 'error':
-        return { ...state, loading: false, data: null, error: action.error?.message }
+        return { ...state, loading: false, error: action.error }
       default:
         return initialState
     }
@@ -35,7 +35,7 @@ export const useApiReducer = (url: string) => {
 
         dispatch({ type: 'success', data: data })
       } catch (e) {
-        dispatch({ type: 'error', error: e })
+        dispatch({ type: 'error', error: e.toString() })
       }
     }
 
