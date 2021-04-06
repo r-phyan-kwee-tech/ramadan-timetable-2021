@@ -32,6 +32,7 @@ export interface Day {
   iftariTimeDescMmZawgyi: string
   iftariTimeDescMmUni: string
   isKadir: boolean
+  isEid: boolean
   duaAr: string
   duaEn: string
   duaMmUni: string

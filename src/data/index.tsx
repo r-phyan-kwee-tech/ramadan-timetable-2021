@@ -29,12 +29,12 @@ export const getSingleState = (stateId: string) => {
 
 export const getSingleDay = (dayId: string) => {
   return `{  day(dayId: "${dayId}") {    id    objectId    day    dayMm    calendarDay
-    hijariDay    sehriTime    iftariTime    sehriTimeDesc    iftariTimeDesc    sehriTimeDescMmUni    sehriTimeDescMmZawgyi    iftariTimeDescMmZawgyi iftariTimeDescMmUni    isKadir    duaAr    duaEn    duaMmUni  duaMmZawgyi    countryId    stateId    createdDate    updatedDate      }}`
+    hijariDay    sehriTime    iftariTime    sehriTimeDesc    iftariTimeDesc    sehriTimeDescMmUni    sehriTimeDescMmZawgyi    iftariTimeDescMmZawgyi iftariTimeDescMmUni    isKadir isEid    duaAr    duaEn    duaMmUni  duaMmZawgyi    countryId    stateId    createdDate    updatedDate      }}`
 }
 
 export const getDays = (limit: number, page: number, stateId: string) => {
   return `{  days(limit: ${limit}, page: ${page}, stateId: "${stateId}") {    data {    id    objectId    day    dayMm    calendarDay
-    hijariDay    sehriTime    iftariTime    sehriTimeDesc    iftariTimeDesc    sehriTimeDescMmUni    sehriTimeDescMmZawgyi    iftariTimeDescMmZawgyi iftariTimeDescMmUni    isKadir    duaAr    duaEn    duaMmUni  duaMmZawgyi    countryId    stateId    createdDate    updatedDate    }  }}`
+    hijariDay    sehriTime    iftariTime    sehriTimeDesc    iftariTimeDesc    sehriTimeDescMmUni    sehriTimeDescMmZawgyi    iftariTimeDescMmZawgyi iftariTimeDescMmUni    isKadir  isEid  duaAr    duaEn    duaMmUni  duaMmZawgyi    countryId    stateId    createdDate    updatedDate    }  }}`
 }
 
 export const saveCountry = async (country: Country) => {
@@ -50,7 +50,7 @@ export const saveStates = async (states: State[]) => {
     await indexdb.states.bulkAdd(states || [])
   } catch {}
   return states.sort((a: State, b: State) => {
-    return a.nameMmUni.split('')[0].localeCompare(b.nameMmUni.split('')[0])
+    return a.nameMmUni.trim().split('')[0].localeCompare(b.nameMmUni.trim().split('')[0])
   })
 }
 
@@ -87,7 +87,7 @@ export const saveTimeTableDays = async (days: Day[]) => {
     await indexdb.days.bulkAdd(days || [])
   } catch {}
 
-  return dayFilter(days)
+  return dayFilter(days, true)
 }
 export const saveTimeTableDay = async (day: Day) => {
   const indexdb = db as any
@@ -104,11 +104,11 @@ export const saveTimeTableDay = async (day: Day) => {
 
 export const GetTimeTableDays = (stateId: string) => {
   const indexdb = db as any
-  const initialState = { loading: true, data: [] }
+  const initialState = { loading: true, data: null }
   const reducer = (state: ApiReducerType = initialState, action: ApiActionType): ApiReducerType => {
     switch (action.type) {
       case 'loading':
-        return { ...state, loading: true, data: [] }
+        return { ...state, loading: true, data: null }
       case 'success':
         return { ...state, loading: false, data: action.data }
       case 'error':
@@ -126,7 +126,6 @@ export const GetTimeTableDays = (stateId: string) => {
       try {
         dispatch({
           type: 'loading',
-          data: [],
         })
         const days = await indexdb.table('days').where('stateId').equals(stateId).sortBy('day')
 
@@ -139,7 +138,7 @@ export const GetTimeTableDays = (stateId: string) => {
         if (days && days.length >= 30) {
           dispatch({
             type: 'success',
-            data: dayFilter(days),
+            data: dayFilter(days, true),
           })
         } else {
           dispatch({
@@ -165,7 +164,7 @@ export const GetStates = (countryId: string) => {
   const reducer = (state: ApiReducerType = initialState, action: ApiActionType): ApiReducerType => {
     switch (action.type) {
       case 'loading':
-        return { ...state, loading: true, data: [] }
+        return { ...state, loading: true }
       case 'success':
         return { ...state, loading: false, data: action.data }
       case 'error':
@@ -191,11 +190,11 @@ export const GetStates = (countryId: string) => {
           error: error.toString(),
         })
       }
-      if (states && states.length > 0) {
+      if (states && states.length === 200) {
         dispatch({
           type: 'success',
           data: states.sort((a: State, b: State) => {
-            return a.nameMmUni.split('')[0].localeCompare(b.nameMmUni.split('')[0])
+            return a.nameMmUni.trim().split('')[0].localeCompare(b.nameMmUni.trim().split('')[0])
           }),
         })
       } else {

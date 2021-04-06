@@ -42,7 +42,7 @@ const Home: React.FC = () => {
         </PlaceHolderComponent>
       )}
 
-      {!loading && error && (
+      {!loading && error && !data && (
         <PlaceHolderComponent left="40%">
           <ErrorText>အချိန်ဇယားရယူစဥ် အမှားတခုဖြစ်သွားပါသည်။ Refresh ပြန်လုပ်ပေးပါ</ErrorText>
         </PlaceHolderComponent>
@@ -50,7 +50,7 @@ const Home: React.FC = () => {
 
       {!loading &&
         data &&
-        data.length !== 0 &&
+        data.length > 0 &&
         data.map((item: Day) => (
           <Card key={item.objectId}>
             <CardActionArea onClick={() => history.push(`detail/${item.objectId}`)}>

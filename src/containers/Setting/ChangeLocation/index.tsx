@@ -19,17 +19,20 @@ const ChangeLocation: React.FC = () => {
 
   return (
     <>
-      {loading && (
+      {loading && data && data.length === 0 && (
         <PlaceHolderComponent>
           <CircularProgress />
         </PlaceHolderComponent>
       )}
+
       {!loading && error && (
         <PlaceHolderComponent left="40%">
           <ErrorText>တိုင်းနှင့်ပြည်နယ်စာရင်းရယူစဥ် အမှားတခုဖြစ်သွားပါသည်။ Refresh ပြန်လုပ်ပေးပါ</ErrorText>
         </PlaceHolderComponent>
       )}
       {!loading &&
+        data &&
+        data.length === 200 &&
         data.map((item: State) => (
           <Card key={item.objectId}>
             <GridContainer container direction="row" justify="flex-end" alignItems="center" spacing={2}>
